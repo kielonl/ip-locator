@@ -25,7 +25,7 @@ input {
   padding: 1rem;
   margin: 1rem 0;
   width: 30%;
-  border-radius: 0.5rem 0 0 0.5rem;
+  border-radius: 1rem 0 0 1rem;
   font-size: 18px;
   border: none;
 }

@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { Loader } from "@googlemaps/js-api-loader";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 interface Props {
   location: { lat: number; lng: number };
@@ -18,7 +18,7 @@ const loader = new Loader({
 });
 const mapDiv = ref(null);
 
-onMounted(async () => {
+const renderMap = async () => {
   await loader.load();
   const map = new google.maps.Map(mapDiv.value, {
     center: props.location,
@@ -29,12 +29,21 @@ onMounted(async () => {
     position: props.location,
     map: map,
   });
+};
+
+watch(
+  () => props.location,
+  async () => await renderMap()
+);
+
+onMounted(async () => {
+  await renderMap();
 });
 </script>
 
 <style lang="scss">
 .map-container {
-  width: 100%;
-  height: 70vh;
+  max-width: none;
+  height: 65vh;
 }
 </style>
